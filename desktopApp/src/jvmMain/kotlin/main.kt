@@ -8,7 +8,11 @@ import androidx.compose.ui.window.application
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication, title = "My Bird App" , icon = painterResource("bird-image-icon.jpg")) {
+    Window(
+        onCloseRequest = ::exitApplication,
+        title = "My Bird App",
+        icon = painterResource("bird-image-icon.jpg"),
+    ) {
         MainView()
     }
 }

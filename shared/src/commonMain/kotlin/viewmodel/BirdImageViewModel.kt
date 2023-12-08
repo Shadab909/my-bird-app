@@ -20,15 +20,21 @@ class BirdImageViewModel(private val birdImageData: BirdImageData) : ViewModel()
         }
     }
 
-    fun fetchImagesByCategory(category: String) {
+    fun fetchImagesByCategory(category: String,searchText: String) {
         viewModelScope.launch {
-            BirdImageRepository.getImagesByCategory(category)
+            BirdImageRepository.getImagesByCategorySearch(category,searchText)
         }
     }
 
     fun updateSelectedCategory(category: String) {
         viewModelScope.launch {
             BirdImageRepository.updateSelectedCategory(category)
+        }
+    }
+
+    fun updateSearchText(searchText: String) {
+        viewModelScope.launch {
+            BirdImageRepository.updateSearchText(searchText)
         }
     }
 

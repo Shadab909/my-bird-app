@@ -25,12 +25,12 @@ fun CategoryButtons(
     viewModel: BirdImageViewModel,
     state: BirdImageUiState
 ){
+    val buttonSelectedColor = Color.Black.copy(alpha = 0.85f)
     Row (
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.Top,
-        modifier = Modifier.fillMaxWidth().padding(start = 8.dp , end = 8.dp , top = 0.dp)
+        modifier = Modifier.fillMaxWidth().padding(start = 8.dp , end = 8.dp , top = 0.dp, bottom = 4.dp)
     ){
-
         Button(
             onClick = {
                 viewModel.updateSelectedCategory("ALL")
@@ -38,14 +38,14 @@ fun CategoryButtons(
             modifier = Modifier.weight(1f).fillMaxWidth().height(Sizes.getButtonHeight(getPlatformName())),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = if (state.selectedCategory == "ALL"){
-                    Color.Gray
+                    buttonSelectedColor
                 } else {
-                    MaterialTheme.colors.primary
+                    Color.Gray
                 }
             ),
             elevation = ButtonDefaults.elevation(0.dp)
         ) {
-            Text(text="ALL", fontSize = Sizes.getTextSize(getPlatformName()).sp)
+            Text(text="ALL", fontSize = Sizes.getTextSize(getPlatformName()).sp, color = Color.White)
         }
 
 
@@ -57,14 +57,14 @@ fun CategoryButtons(
                 modifier = Modifier.weight(1f).fillMaxWidth().height(Sizes.getButtonHeight(getPlatformName())),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = if (state.selectedCategory == category){
-                        Color.Gray
+                        buttonSelectedColor
                     } else {
-                        MaterialTheme.colors.primary
+                        Color.Gray
                     }
                 ),
                 elevation = ButtonDefaults.elevation(0.dp)
             ) {
-                Text(text=category, fontSize = Sizes.getTextSize(getPlatformName()).sp)
+                Text(text=category, fontSize = Sizes.getTextSize(getPlatformName()).sp, color = Color.White)
             }
         }
     }

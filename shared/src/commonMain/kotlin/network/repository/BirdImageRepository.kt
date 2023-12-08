@@ -17,11 +17,12 @@ class BirdImageRepository {
         private val _uiState = MutableStateFlow(BirdImageUiState())
         val uiState = _uiState.asStateFlow()
 
-        fun getImagesByCategory(category: String) {
+        fun getImagesByCategorySearch(category: String , searchText: String) {
             CoroutineScope(Dispatchers.IO).launch {
                 _uiState.update { state ->
                     state.copy(
                         selectedCategory = category,
+                        searchText = searchText
                     )
                 }
             }
@@ -37,8 +38,6 @@ class BirdImageRepository {
                         _uiState.update {state->
                             state.copy(
                                 images = it,
-                                selectedCategory = "ALL",
-                                searchText = ""
                             )
                         }
                         onSuccess(true)

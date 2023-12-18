@@ -1,5 +1,6 @@
 package util
 
+import androidx.compose.material.Colors
 import androidx.compose.ui.graphics.Color
 
 object MColors {
@@ -20,18 +21,34 @@ object MColors {
 
     //convert above into Color objects
     val primaryColor = Color(primary)
-    val primaryVariantColor = Color(primaryVariant)
-    val secondaryColor = Color(secondary)
-    val secondaryVariantColor = Color(secondaryVariant)
+    private val primaryVariantColor = Color(primaryVariant)
+    private val secondaryColor = Color(secondary)
+    private val secondaryVariantColor = Color(secondaryVariant)
     val backgroundColor = Color(background)
-    val surfaceColor = Color(surface)
-    val errorColor = Color(error)
-    val onPrimaryColor = Color(onPrimary)
-    val onSecondaryColor = Color(onSecondary)
-    val onBackgroundColor = Color(onBackground)
-    val onSurfaceColor = Color(onSurface)
-    val onErrorColor = Color(onError)
+    private val surfaceColor = Color(surface)
+    private val errorColor = Color(error)
+    private val onPrimaryColor = Color(onPrimary)
+    private val onSecondaryColor = Color(onSecondary)
+    private val onBackgroundColor = Color(onBackground)
+    private val onSurfaceColor = Color(onSurface)
+    private val onErrorColor = Color(onError)
     val buttonColor = Color(button)
     val selectedButtonColor = Color(selectedButton)
+
+    val colors = Colors(
+        primary = primaryColor,
+        primaryVariant = primaryVariantColor,
+        secondary = secondaryColor,
+        secondaryVariant = secondaryVariantColor,
+        background = backgroundColor,
+        surface = surfaceColor,
+        error = errorColor,
+        onPrimary = onPrimaryColor,
+        onSecondary = onSecondaryColor,
+        onBackground = onBackgroundColor,
+        onSurface = onSurfaceColor,
+        onError = onErrorColor,
+        isLight = false
+    )
 
 }

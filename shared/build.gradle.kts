@@ -45,6 +45,14 @@ kotlin {
 
                 implementation("dev.icerock.moko:mvvm-compose:0.16.1")
 
+                val voyagerVersion = "1.0.0"
+
+                // Navigator
+                implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+
+                // transition
+                implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+
             }
         }
         val androidMain by getting {
@@ -55,8 +63,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-android:2.3.6")
             }
         }
-
-
 
         val iosX64Main by getting
         val iosArm64Main by getting

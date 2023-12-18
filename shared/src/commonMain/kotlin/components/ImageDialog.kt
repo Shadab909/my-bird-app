@@ -23,17 +23,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.Navigator
 import getPlatformName
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.BirdImage
+import screen.birddetailscreen.BirdDetailsScreen
 import util.Sizes
 
 @Composable
 fun ImageDialog(
     openDialog : MutableState<Boolean>,
     selectedImage: MutableState<String>,
-    selectedBird: MutableState<BirdImage>
+    selectedBird: MutableState<BirdImage>,
+    navigator : Navigator
 ) {
         Card(
             modifier = Modifier.clickable {
@@ -80,6 +83,7 @@ fun ImageDialog(
                             .align(Alignment.TopEnd)
                             .clickable {
                                 openDialog.value = false
+                                navigator.push(BirdDetailsScreen(selectedBird.value))
                             },
                         tint = Color.White
                     )

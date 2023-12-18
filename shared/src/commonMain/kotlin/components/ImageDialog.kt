@@ -13,6 +13,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -60,28 +61,45 @@ fun ImageDialog(
                         contentDescription = "Close",
                         modifier = Modifier
                             .padding(4.dp)
-                            .height(24.dp)
-                            .width(24.dp)
+                            .height(30.dp)
+                            .width(30.dp)
+                            .align(Alignment.TopStart)
+                            .clickable {
+                                openDialog.value = false
+                            },
+                        tint = Color.White
+                    )
+
+                    Icon(
+                        Icons.Default.ArrowForward,
+                        contentDescription = "Details",
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .height(30.dp)
+                            .width(30.dp)
                             .align(Alignment.TopEnd)
                             .clickable {
                                 openDialog.value = false
-                            }
+                            },
+                        tint = Color.White
                     )
 
                     Column (
                         horizontalAlignment = Alignment.Start ,
                         modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter).background(
-                            Color.LightGray)
+                            color=Color.Black.copy(alpha = 0.65f))
                     ){
                         Text(
                             text = "Category: ${selectedBird.value.category}",
                             modifier = Modifier.padding(start=8.dp,end=8.dp,top=8.dp),
-                            fontSize = Sizes.getTextSize(getPlatformName()).sp
+                            fontSize = Sizes.getTextSize(getPlatformName()).sp,
+                            color = Color.White
                         )
                         Text(
                             text = "Author: ${selectedBird.value.author}",
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp,bottom = 8.dp),
-                            fontSize = Sizes.getTextSize(getPlatformName()).sp
+                            fontSize = Sizes.getTextSize(getPlatformName()).sp,
+                            color = Color.White
                         )
                 }
             }

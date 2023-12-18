@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import getPlatformName
 import model.BirdImageUiState
+import util.MColors
 import util.Sizes
 import viewmodel.BirdImageViewModel
 
@@ -28,7 +29,7 @@ fun CategoryButtons(
     Row (
         horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.Top,
-        modifier = Modifier.fillMaxWidth().padding(start = 8.dp , end = 8.dp , top = 0.dp)
+        modifier = Modifier.fillMaxWidth().padding(start = 8.dp , end = 8.dp , top = 0.dp , bottom = 4.dp)
     ){
 
         Button(
@@ -38,14 +39,14 @@ fun CategoryButtons(
             modifier = Modifier.weight(1f).fillMaxWidth().height(Sizes.getButtonHeight(getPlatformName())),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = if (state.selectedCategory == "ALL"){
-                    Color.Gray
+                    MColors.selectedButtonColor
                 } else {
-                    MaterialTheme.colors.primary
+                    MColors.buttonColor
                 }
             ),
             elevation = ButtonDefaults.elevation(0.dp)
         ) {
-            Text(text="ALL", fontSize = Sizes.getTextSize(getPlatformName()).sp)
+            Text(text="ALL", fontSize = Sizes.getTextSize(getPlatformName()).sp , color = Color.White)
         }
 
 
@@ -57,14 +58,14 @@ fun CategoryButtons(
                 modifier = Modifier.weight(1f).fillMaxWidth().height(Sizes.getButtonHeight(getPlatformName())),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = if (state.selectedCategory == category){
-                        Color.Gray
+                        MColors.selectedButtonColor
                     } else {
-                        MaterialTheme.colors.primary
+                        MColors.buttonColor
                     }
                 ),
                 elevation = ButtonDefaults.elevation(0.dp)
             ) {
-                Text(text=category, fontSize = Sizes.getTextSize(getPlatformName()).sp)
+                Text(text=category, fontSize = Sizes.getTextSize(getPlatformName()).sp , color = Color.White)
             }
         }
     }

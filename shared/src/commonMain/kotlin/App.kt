@@ -18,7 +18,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Shapes
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,6 +47,7 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.BirdImage
 import network.data.BirdImageData
+import util.MColors
 import util.Sizes.Companion.getImageSize
 import viewmodel.BirdImageViewModel
 
@@ -53,7 +57,29 @@ import viewmodel.BirdImageViewModel
 @Composable
 fun App() {
 
-    MaterialTheme {
+
+    MaterialTheme(
+        colors = Colors(
+            primary = MColors.primaryColor,
+            primaryVariant = MColors.primaryVariantColor,
+            secondary = MColors.secondaryColor,
+            secondaryVariant = MColors.secondaryVariantColor,
+            background = MColors.backgroundColor,
+            surface = MColors.surfaceColor,
+            error = MColors.errorColor,
+            onPrimary = MColors.onPrimaryColor,
+            onSecondary = MColors.onSecondaryColor,
+            onBackground = MColors.onBackgroundColor,
+            onSurface = MColors.onSurfaceColor,
+            onError = MColors.onErrorColor,
+            isLight = false
+        ),
+        shapes = Shapes(
+            small = RoundedCornerShape(0.dp),
+            medium = RoundedCornerShape(0.dp),
+            large = RoundedCornerShape(0.dp),
+        )
+    ) {
 
         val birdImageData = BirdImageData()
 
@@ -86,7 +112,7 @@ fun App() {
 
             AnimatedVisibility(
                 visible = state.images.isEmpty(),
-                modifier = Modifier.fillMaxSize().align(Alignment.Center),
+                modifier = Modifier.fillMaxSize().align(Alignment.Center).background(color = MColors.backgroundColor),
             ) {
                 Column(
                     Modifier.fillMaxSize(),
@@ -96,7 +122,7 @@ fun App() {
                     Text(
                         text = "Loading.....",
                         fontSize = 20.sp,
-                        color = Color.Black,
+                        color = Color.White,
                         textAlign = Center
                     )
                 }
@@ -157,10 +183,10 @@ fun App() {
                                     },
                                     contentScale = ContentScale.Crop,
                                     onLoading = {
-                                        Text("Loading image...")
+                                        Text(text="Loading image...", color = Color.White)
                                     },
                                     onFailure = {
-                                        Text("Failed to load image")
+                                        Text(text="Failed to load image",color=Color.White)
                                     },
                                 )
                             }

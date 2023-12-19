@@ -1,4 +1,6 @@
-package model
+package presentation.screen.birdlistscreen
+
+import model.BirdImage
 
 data class BirdImageUiState(
     var searchText : String = "",

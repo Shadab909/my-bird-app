@@ -1,4 +1,4 @@
-package screen.birdlistscreen
+package presentation.screen.birdlistscreen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -38,9 +38,10 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import components.CategoryButtons
-import components.ImageDialog
-import components.TopSearchBar
+import presentation.screen.birdlistscreen.component.CategoryButtons
+import presentation.screen.birdlistscreen.component.ImageDialog
+import presentation.screen.birddetailscreen.components.ShadedOverlay
+import presentation.screen.birdlistscreen.component.TopSearchBar
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import getPlatformName
@@ -49,8 +50,7 @@ import io.kamel.image.asyncPainterResource
 import model.BirdImage
 import network.data.BirdImageData
 import util.MColors
-import util.Sizes
-import viewmodel.BirdImageViewModel
+import util.MSizes
 
 class BirdListScreen : Screen {
     @Composable
@@ -61,8 +61,8 @@ class BirdListScreen : Screen {
         val birdImageData = BirdImageData()
 
         val viewModel = getViewModel(
-            BirdImageViewModel::class,
-            viewModelFactory { BirdImageViewModel(birdImageData) })
+            BirdListViewModel::class,
+            viewModelFactory { BirdListViewModel(birdImageData) })
 
         val state by viewModel.uiState.collectAsState()
 
@@ -86,7 +86,6 @@ class BirdListScreen : Screen {
 
 
         Box(modifier = Modifier.fillMaxSize()) {
-
             AnimatedVisibility(
                 visible = state.images.isEmpty(),
                 modifier = Modifier.fillMaxSize().align(Alignment.Center)
@@ -144,7 +143,7 @@ class BirdListScreen : Screen {
                     ) {
 
                         LazyVerticalGrid(
-                            columns = GridCells.Adaptive(Sizes.getImageSize(getPlatformName())),
+                            columns = GridCells.Adaptive(MSizes.getImageSize(getPlatformName())),
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                             horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -171,6 +170,12 @@ class BirdListScreen : Screen {
                         }
                     }
                 }
+                ShadedOverlay(
+                    visible = openDialog.value,
+                    onDismiss = {
+                        openDialog.value = false
+                    }
+                )
             }
             AnimatedVisibility(
                 visible = openDialog.value,

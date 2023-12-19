@@ -7,7 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.FadeTransition
-import screen.birdlistscreen.BirdListScreen
+import cafe.adriel.voyager.transitions.ScaleTransition
+import cafe.adriel.voyager.transitions.SlideTransition
+import presentation.screen.birdlistscreen.BirdListScreen
 import util.MColors
 import util.MShapes
 
@@ -19,7 +21,7 @@ fun App() {
         shapes = MShapes.shapes
     ) {
         Navigator(BirdListScreen()){
-            FadeTransition(
+            SlideTransition(
                 navigator = it,
             )
         }

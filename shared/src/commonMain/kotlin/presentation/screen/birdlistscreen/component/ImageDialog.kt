@@ -1,4 +1,4 @@
-package components
+package presentation.screen.birdlistscreen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,8 +28,8 @@ import getPlatformName
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.BirdImage
-import screen.birddetailscreen.BirdDetailsScreen
-import util.Sizes
+import presentation.screen.birddetailscreen.BirdDetailsScreen
+import util.MSizes
 
 @Composable
 fun ImageDialog(
@@ -96,13 +96,13 @@ fun ImageDialog(
                         Text(
                             text = "Category: ${selectedBird.value.category}",
                             modifier = Modifier.padding(start=8.dp,end=8.dp,top=8.dp),
-                            fontSize = Sizes.getTextSize(getPlatformName()).sp,
+                            fontSize = MSizes.getTextSize(getPlatformName()).sp,
                             color = Color.White
                         )
                         Text(
                             text = "Author: ${selectedBird.value.author}",
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp,bottom = 8.dp),
-                            fontSize = Sizes.getTextSize(getPlatformName()).sp,
+                            fontSize = MSizes.getTextSize(getPlatformName()).sp,
                             color = Color.White
                         )
                 }

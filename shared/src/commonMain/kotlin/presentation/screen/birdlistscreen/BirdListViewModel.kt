@@ -1,4 +1,4 @@
-package viewmodel
+package presentation.screen.birdlistscreen
 
 
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
@@ -7,7 +7,7 @@ import network.data.BirdImageData
 import network.repository.BirdImageRepository
 
 
-class BirdImageViewModel(private val birdImageData: BirdImageData) : ViewModel() {
+class BirdListViewModel(private val birdImageData: BirdImageData) : ViewModel() {
 
     val uiState = BirdImageRepository.uiState
 

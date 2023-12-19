@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import model.BirdImageUiState
+import presentation.screen.birdlistscreen.BirdImageUiState
 import network.data.BirdImageData
 
 class BirdImageRepository {

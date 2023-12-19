@@ -1,4 +1,4 @@
-package components
+package presentation.screen.birdlistscreen.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,14 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import getPlatformName
-import model.BirdImageUiState
+import presentation.screen.birdlistscreen.BirdImageUiState
 import util.MColors
-import util.Sizes
-import viewmodel.BirdImageViewModel
+import util.MSizes
+import presentation.screen.birdlistscreen.BirdListViewModel
 
 @Composable
 fun CategoryButtons(
-    viewModel: BirdImageViewModel,
+    viewModel: BirdListViewModel,
     state: BirdImageUiState
 ){
     Row (
@@ -36,7 +35,7 @@ fun CategoryButtons(
             onClick = {
                 viewModel.updateSelectedCategory("ALL")
             },
-            modifier = Modifier.weight(1f).fillMaxWidth().height(Sizes.getButtonHeight(getPlatformName())),
+            modifier = Modifier.weight(1f).fillMaxWidth().height(MSizes.getButtonHeight(getPlatformName())),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = if (state.selectedCategory == "ALL"){
                     MColors.selectedButtonColor
@@ -46,7 +45,7 @@ fun CategoryButtons(
             ),
             elevation = ButtonDefaults.elevation(0.dp)
         ) {
-            Text(text="ALL", fontSize = Sizes.getTextSize(getPlatformName()).sp , color = Color.White)
+            Text(text="ALL", fontSize = MSizes.getTextSize(getPlatformName()).sp , color = Color.White)
         }
 
 
@@ -55,7 +54,7 @@ fun CategoryButtons(
                 onClick = {
                     viewModel.updateSelectedCategory(category)
                 },
-                modifier = Modifier.weight(1f).fillMaxWidth().height(Sizes.getButtonHeight(getPlatformName())),
+                modifier = Modifier.weight(1f).fillMaxWidth().height(MSizes.getButtonHeight(getPlatformName())),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = if (state.selectedCategory == category){
                         MColors.selectedButtonColor
@@ -65,7 +64,7 @@ fun CategoryButtons(
                 ),
                 elevation = ButtonDefaults.elevation(0.dp)
             ) {
-                Text(text=category, fontSize = Sizes.getTextSize(getPlatformName()).sp , color = Color.White)
+                Text(text=category, fontSize = MSizes.getTextSize(getPlatformName()).sp , color = Color.White)
             }
         }
     }

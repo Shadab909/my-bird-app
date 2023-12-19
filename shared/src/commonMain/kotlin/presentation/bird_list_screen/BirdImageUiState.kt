@@ -1,5 +1,6 @@
-package presentation.screen.birdlistscreen
+package presentation.bird_list_screen
 
+import domain.model.Bird
 import model.BirdImage
 
 data class BirdImageUiState(

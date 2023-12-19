@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import presentation.screen.birdlistscreen.BirdImageUiState
+import presentation.bird_list_screen.BirdImageUiState
 import network.data.BirdImageData
 
 class BirdImageRepository {
@@ -65,12 +65,6 @@ class BirdImageRepository {
                         )
                     }
                 }
-            }
-        }
-
-        fun updateSearchText(searchText: String) {
-            _uiState.update {
-                it.copy(searchText = searchText)
             }
         }
 

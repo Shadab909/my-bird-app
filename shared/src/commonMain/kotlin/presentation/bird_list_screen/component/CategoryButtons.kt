@@ -1,4 +1,4 @@
-package presentation.screen.birdlistscreen.component
+package presentation.bird_list_screen.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,10 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import getPlatformName
-import presentation.screen.birdlistscreen.BirdImageUiState
+import presentation.bird_list_screen.BirdImageUiState
 import util.MColors
 import util.MSizes
-import presentation.screen.birdlistscreen.BirdListViewModel
+import presentation.bird_list_screen.BirdListViewModel
 
 @Composable
 fun CategoryButtons(

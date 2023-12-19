@@ -1,4 +1,4 @@
-package presentation.screen.birddetailscreen.components
+package presentation.bird_details_screen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

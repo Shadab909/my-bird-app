@@ -1,4 +1,4 @@
-package presentation.screen.birdlistscreen
+package presentation.bird_list_screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -38,10 +38,10 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import presentation.screen.birdlistscreen.component.CategoryButtons
-import presentation.screen.birdlistscreen.component.ImageDialog
-import presentation.screen.birddetailscreen.components.ShadedOverlay
-import presentation.screen.birdlistscreen.component.TopSearchBar
+import presentation.bird_list_screen.component.CategoryButtons
+import presentation.bird_list_screen.component.ImageDialog
+import presentation.bird_details_screen.component.ShadedOverlay
+import presentation.bird_list_screen.component.TopSearchBar
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 import getPlatformName

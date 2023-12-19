@@ -1,15 +1,8 @@
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.transitions.FadeTransition
-import cafe.adriel.voyager.transitions.ScaleTransition
 import cafe.adriel.voyager.transitions.SlideTransition
-import presentation.screen.birdlistscreen.BirdListScreen
+import presentation.bird_list_screen.BirdListScreen
 import util.MColors
 import util.MShapes
 

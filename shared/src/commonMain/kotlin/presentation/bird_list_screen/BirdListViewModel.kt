@@ -1,4 +1,4 @@
-package presentation.screen.birdlistscreen
+package presentation.bird_list_screen
 
 
 import dev.icerock.moko.mvvm.viewmodel.ViewModel

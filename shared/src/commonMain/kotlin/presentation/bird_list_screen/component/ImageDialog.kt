@@ -1,4 +1,4 @@
-package presentation.screen.birdlistscreen.component
+package presentation.bird_list_screen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +28,7 @@ import getPlatformName
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import model.BirdImage
-import presentation.screen.birddetailscreen.BirdDetailsScreen
+import presentation.bird_details_screen.BirdDetailsScreen
 import util.MSizes
 
 @Composable

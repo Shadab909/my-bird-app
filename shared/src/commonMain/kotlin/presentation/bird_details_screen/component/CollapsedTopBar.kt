@@ -1,4 +1,4 @@
-package presentation.screen.birddetailscreen.components
+package presentation.bird_details_screen.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState

@@ -1,4 +1,4 @@
-package presentation.screen.birdlistscreen.component
+package presentation.bird_list_screen.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -25,9 +25,9 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import presentation.screen.birdlistscreen.BirdImageUiState
+import presentation.bird_list_screen.BirdImageUiState
 import util.MColors
-import presentation.screen.birdlistscreen.BirdListViewModel
+import presentation.bird_list_screen.BirdListViewModel
 
 @Composable
 fun TopSearchBar(

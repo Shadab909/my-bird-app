@@ -33,16 +33,16 @@ import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import domain.model.Bird
 import presentation.bird_details_screen.component.CollapsedTopBar
 import presentation.bird_details_screen.component.ExpandedTopBar
 import getPlatformName
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import model.BirdImage
 import util.MColors
 import util.MString
 
-class BirdDetailsScreen(private val bird: BirdImage) : Screen {
+class BirdDetailsScreen(private val bird: Bird) : Screen {
     @Composable
     override fun Content() {
         val selectedImage = "https://sebi.io/demo-image-api/${bird.path}"
@@ -102,7 +102,7 @@ class BirdDetailsScreen(private val bird: BirdImage) : Screen {
                         ) {
                             item {
                                 Text(
-                                    text = "author : ${bird.author}",
+                                    text = "author : ${bird.photographer}",
                                     fontSize = 24.sp,
                                     textAlign = TextAlign.Center,
                                     modifier = Modifier.fillMaxSize()
@@ -113,7 +113,7 @@ class BirdDetailsScreen(private val bird: BirdImage) : Screen {
 
                             item {
                                 Text(
-                                    text = "category : ${bird.category}",
+                                    text = "category : ${bird.type}",
                                     fontSize = 20.sp,
                                     textAlign = TextAlign.Center,
                                     modifier = Modifier.fillMaxSize()
@@ -144,9 +144,9 @@ class BirdDetailsScreen(private val bird: BirdImage) : Screen {
                     }
                 }
                 Box {
-                    CollapsedTopBar(navigator = navigator, category = bird.category, modifier = Modifier.zIndex(2f), isCollapsed = isCollapsed)
+                    CollapsedTopBar(navigator = navigator, category = bird.type, modifier = Modifier.zIndex(2f), isCollapsed = isCollapsed)
                     LazyColumn(state = listState) {
-                        item { ExpandedTopBar(selectedImage, bird.category , navigator) }
+                        item { ExpandedTopBar(selectedImage, bird.type , navigator) }
                         item {
                             Text(
                                 text = MString.tempText,

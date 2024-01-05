@@ -23,14 +23,17 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -42,52 +45,44 @@ import presentation.bird_list_screen.component.CategoryButtons
 import presentation.bird_list_screen.component.ImageDialog
 import presentation.bird_details_screen.component.ShadedOverlay
 import presentation.bird_list_screen.component.TopSearchBar
-import dev.icerock.moko.mvvm.compose.getViewModel
-import dev.icerock.moko.mvvm.compose.viewModelFactory
+import domain.model.Bird
 import getPlatformName
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import model.BirdImage
-import network.data.BirdImageData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.launch
 import util.MColors
 import util.MSizes
 
-class BirdListScreen : Screen {
+class BirdListScreen(private val viewModel: BirdListViewModel) : Screen {
+    @OptIn(ExperimentalComposeUiApi::class)
     @Composable
     override fun Content() {
-
         val navigator = LocalNavigator.currentOrThrow
 
-        val birdImageData = BirdImageData()
-
-        val viewModel = getViewModel(
-            BirdListViewModel::class,
-            viewModelFactory { BirdListViewModel(birdImageData) })
-
-        val state by viewModel.uiState.collectAsState()
+        val state by viewModel.state
 
         val openDialog = remember { mutableStateOf(false) }
 
         val selectedImage = remember { mutableStateOf("") }
 
-        val selectedBird = remember {
+        val keyboard = LocalSoftwareKeyboardController.current
+
+        val selectedBirdLocal = remember {
             mutableStateOf(
-                BirdImage(
-                    author = "",
-                    category = "",
+                Bird(
+                    photographer = "",
+                    type = "",
                     path = ""
                 )
             )
         }
 
-        LaunchedEffect(state.selectedCategory) {
-            viewModel.fetchImagesByCategory(state.selectedCategory)
-        }
-
-
         Box(modifier = Modifier.fillMaxSize()) {
             AnimatedVisibility(
-                visible = state.images.isEmpty(),
+                visible = state.isLoading,
                 modifier = Modifier.fillMaxSize().align(Alignment.Center)
                     .background(color = MColors.backgroundColor),
             ) {
@@ -106,8 +101,7 @@ class BirdListScreen : Screen {
             }
 
             AnimatedVisibility(
-                visible = state.images.isNotEmpty(),
-                label = "Loading.....",
+                visible = !state.isLoading,
                 modifier = Modifier.fillMaxSize().align(Alignment.Center),
                 enter = slideIn(
                     animationSpec = spring(
@@ -137,25 +131,25 @@ class BirdListScreen : Screen {
                     Spacer(modifier = Modifier.fillMaxWidth().height(2.dp).padding(8.dp))
 
                     AnimatedVisibility(
-                        visible = state.selectedImage.isNotEmpty(),
+                        visible = state.selectedBird.isNotEmpty(),
                         modifier = Modifier.fillMaxWidth()
                             .padding(start = 8.dp, end = 8.dp, bottom = 4.dp)
                     ) {
-
                         LazyVerticalGrid(
                             columns = GridCells.Adaptive(MSizes.getImageSize(getPlatformName())),
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                             horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            items(state.selectedImage.size) { index ->
+                            items(state.selectedBird.size) { index ->
+                                val imageUrl = "https://sebi.io/demo-image-api/${state.selectedBird[index].path}"
                                 KamelImage(
-                                    asyncPainterResource("https://sebi.io/demo-image-api/${state.selectedImage[index].path}"),
+                                    asyncPainterResource(imageUrl),
                                     contentDescription = "Compose Multiplatform icon",
                                     modifier = Modifier.weight(1f).aspectRatio(1f).clickable {
-                                        selectedImage.value =
-                                            "https://sebi.io/demo-image-api/${state.selectedImage[index].path}"
-                                        selectedBird.value = state.selectedImage[index]
+                                        keyboard?.hide()
+                                        selectedImage.value = imageUrl
+                                        selectedBirdLocal.value = state.selectedBird[index]
                                         openDialog.value = true
                                     },
                                     contentScale = ContentScale.Crop,
@@ -188,7 +182,7 @@ class BirdListScreen : Screen {
                 ImageDialog(
                     openDialog = openDialog,
                     selectedImage = selectedImage,
-                    selectedBird = selectedBird,
+                    selectedBird = selectedBirdLocal,
                     navigator = navigator
                 )
             }

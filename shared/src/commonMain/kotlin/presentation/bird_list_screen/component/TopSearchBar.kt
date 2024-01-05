@@ -19,23 +19,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import presentation.bird_list_screen.BirdImageUiState
+import presentation.bird_list_screen.BirdListState
 import util.MColors
 import presentation.bird_list_screen.BirdListViewModel
 
 @Composable
 fun TopSearchBar(
     viewModel: BirdListViewModel,
-    state: BirdImageUiState
+    state: BirdListState
 ) {
-
-    var searchText by remember { mutableStateOf("") }
+    var searchText by remember { mutableStateOf(state.searchText) }
 
     Row(
         modifier = Modifier.fillMaxWidth().padding(start = 5.dp , end = 5.dp , top = 0.dp),
@@ -53,11 +54,14 @@ fun TopSearchBar(
             value = searchText,
             onValueChange = {
                 searchText = it
-                viewModel.searchImageByAuthor(it)
+                viewModel.searchBirdsByTypeAndSearchText(type = state.selectedBirdType,searchText = it)
             },
-            label = {
+            placeholder = {
                 Text(text="Search Image by Author", color = Color.Black)
             },
+//            label = {
+//                Text(text="Search Image by Author", color = Color.Black)
+//            },
             modifier = Modifier.weight(1f).fillMaxWidth().padding(4.dp),
             maxLines = 1,
             leadingIcon = {
@@ -81,7 +85,7 @@ fun TopSearchBar(
                             .width(24.dp)
                             .clickable {
                                 searchText = ""
-                                viewModel.searchImageByAuthor("")
+                                viewModel.searchBirdsByTypeAndSearchText(type = state.selectedBirdType,searchText = "")
                             }
                             .pointerHoverIcon(
                                 PointerIcon.Default

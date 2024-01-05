@@ -3,13 +3,13 @@ package presentation.bird_list_screen
 import domain.model.Bird
 
 data class BirdListState(
-    var isLoading : Boolean = false,
+    var isLoading : Boolean = true,
     var error : String = "",
     var searchText: String = "",
     var selectedBirdType: String = "ALL",
-    var birdList: List<Bird> = emptyList()
+    var birdList: List<Bird>
 ) {
-    var types = birdList.map { it.type }.toSet()
+    val types = birdList.map { it.type }.toSet()
     var selectedBird = if (searchText.isEmpty()) {
         if (selectedBirdType == "ALL") {
             birdList

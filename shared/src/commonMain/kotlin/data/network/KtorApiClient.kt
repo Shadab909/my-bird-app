@@ -8,7 +8,6 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
-import model.BirdImage
 import util.Resource
 
 class KtorApiClient {
@@ -21,13 +20,13 @@ class KtorApiClient {
         }
     }
 
-    suspend fun getBirdList() : Resource<List<Bird>> {
+    suspend fun getBirdList(): Resource<List<Bird>> {
         return try {
             val birdDto =
                 httpClient.get("https://sebi.io/demo-image-api/pictures.json").body<List<BirdDto>>()
             val birds = birdDto.map { it.toBird() }
             Resource.Success(birds)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Resource.Error(e.message ?: "Unknown error")
         }
     }

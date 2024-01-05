@@ -52,7 +52,6 @@ kotlin {
 
                 // transition
                 implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
-
             }
         }
         val androidMain by getting {

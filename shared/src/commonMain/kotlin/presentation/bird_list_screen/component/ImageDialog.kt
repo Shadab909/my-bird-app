@@ -24,10 +24,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.navigator.Navigator
+import domain.model.Bird
 import getPlatformName
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import model.BirdImage
 import presentation.bird_details_screen.BirdDetailsScreen
 import util.MSizes
 
@@ -35,7 +35,7 @@ import util.MSizes
 fun ImageDialog(
     openDialog : MutableState<Boolean>,
     selectedImage: MutableState<String>,
-    selectedBird: MutableState<BirdImage>,
+    selectedBird: MutableState<Bird>,
     navigator : Navigator
 ) {
         Card(
@@ -94,13 +94,13 @@ fun ImageDialog(
                             color=Color.Black.copy(alpha = 0.65f))
                     ){
                         Text(
-                            text = "Category: ${selectedBird.value.category}",
+                            text = "Category: ${selectedBird.value.type}",
                             modifier = Modifier.padding(start=8.dp,end=8.dp,top=8.dp),
                             fontSize = MSizes.getTextSize(getPlatformName()).sp,
                             color = Color.White
                         )
                         Text(
-                            text = "Author: ${selectedBird.value.author}",
+                            text = "Author: ${selectedBird.value.photographer}",
                             modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp,bottom = 8.dp),
                             fontSize = MSizes.getTextSize(getPlatformName()).sp,
                             color = Color.White

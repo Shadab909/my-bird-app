@@ -1,41 +1,44 @@
 package presentation.bird_list_screen
 
-
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
+import domain.use_case.GetBirdsUseCase
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import network.data.BirdImageData
-import network.repository.BirdImageRepository
+import util.Resource
 
+class BirdListViewModel(
+    private val getBirdsUseCase: GetBirdsUseCase
+) : ViewModel() {
 
-class BirdListViewModel(private val birdImageData: BirdImageData) : ViewModel() {
-
-    val uiState = BirdImageRepository.uiState
+    private val _state = mutableStateOf(BirdListState(birdList = emptyList()))
+    val state: State<BirdListState> = _state
 
     init {
-        viewModelScope.launch {
-            BirdImageRepository.fetchAllImages(
-                birdImageData = birdImageData,
-                onSuccess = {}
-            )
-        }
+        getBirds()
     }
 
-    fun fetchImagesByCategory(category: String) {
-        viewModelScope.launch {
-            BirdImageRepository.getImagesByCategory(category)
-        }
+    private fun getBirds(){
+        getBirdsUseCase().onEach {result ->
+            when(result){
+                is Resource.Success -> {
+                    _state.value = BirdListState(birdList = result.data ?: emptyList() , isLoading = false)
+                }
+                is Resource.Error -> {
+                    _state.value = BirdListState(error = result.message ?: "An unexpected error occurred", birdList = emptyList(), isLoading = false)
+                }
+                is Resource.Loading -> {
+                    _state.value = BirdListState(isLoading = true, birdList = emptyList())
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
-    fun updateSelectedCategory(category: String) {
+    fun searchBirdsByTypeAndSearchText(searchText: String , type : String){
         viewModelScope.launch {
-            BirdImageRepository.updateSelectedCategory(category)
-        }
-    }
-
-
-    fun searchImageByAuthor(searchText: String) {
-        viewModelScope.launch {
-            BirdImageRepository.searchImagesByAuthor(searchText)
+            _state.value = BirdListState(selectedBirdType = type, searchText = searchText, birdList = _state.value.birdList,isLoading = false)
         }
     }
 }
